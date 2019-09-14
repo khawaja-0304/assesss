@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TASK2.Models.Airline>
+
+@{
+    ViewData["Title"] = "AllAirlines";
+}
+
+<h1>AllAirlines - @Model.Count()</h1>
+
+<p>
+    <a href="/airline/addnewairline">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{var ClassName = "table-warning"; }
+
+        @foreach (var item in Model)
+        {
+            {
+
+
+
+                if(item.ShortCode =="Active")
+                {
+                    ClassName = "table-success";
+                }
+                else if(item.ShortCode =="InActive")
+                {
+                    ClassName = "table-danger";
+                }
+                else
+                {
+                ClassName = "table-warning";}
+
+            }
+            <tr class="@ClassName">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a href="/airline/viewairlinedetail?id=@item.Id" class="btn btn-sm btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                    <a href="/airline/editairline?id=@item.Id" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                    <a href="/airline/deleteairline?id=@item.Id" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
